@@ -1,0 +1,44 @@
+# Bài 6: Thiết lập Môi trường Làm việc Số cho Doanh nghiệp (dự án Trang trại thông minh - Green-Tech)
+
+## 1. Chức năng 1: Lưu trữ (Hybrid Workflow cho Dev)
+- Code lưu trong thư mục sync (hoặc dùng Git, đẩy lên GitHub/GitLab) nên Ctrl + S là có bản trên Cloud.
+- Bật Version History/Git commit thường xuyên để quay lại bản cũ khi lỗi.
+- Bật chế độ offline cho thư mục code; khi có mạng lại thì tự đồng bộ.
+- File .env để ngoài Git (thêm vào .gitignore), chỉ lưu bản mẫu .env.example.
+
+## 2. Chức năng 2: Chia sẻ (phân quyền)
+| Đối tượng | Quyền | Phạm vi |
+|---|---|---|
+| Nhà đầu tư | Viewer | Chỉ thư mục Báo cáo, không xem code/.env |
+| Đối tác cung cấp thiết bị | Commenter | Thư mục thông số thiết bị, góp ý bằng bình luận |
+| Dev trong nhóm | Editor | Thư mục code, sensors |
+| Trưởng dự án | Owner | Toàn bộ dự án |
+- Tắt tải xuống/sao chép với Viewer, dùng link có thời hạn.
+- Kiểm tra Access Audit Log định kỳ.
+
+## 3. Chức năng 3: Giao tiếp
+- Tạo kênh #sensor-thao-luan, #bug-report, #bao-cao.
+- Thảo luận, lỗi cảm biến được chuyển thành Task trong Enterprise Workspace: gán người phụ trách và Deadline.
+- Dùng thread, giao tiếp bất đồng bộ, quy tắc No-Hello.
+
+## 4. Ràng buộc
+- Transfer Ownership: khi kết thúc bài tập, trưởng nhóm chuyển quyền sở hữu thư mục dự án cho tài khoản người nhận (giảng viên/tổ chức), kiểm tra quyền sau khi chuyển.
+- Bảo vệ .env: không đẩy lên Git/chia sẻ, đặt chế độ Restricted, dùng biến môi trường/Secrets Manager; nếu lỡ lộ thì đổi mật khẩu/API key ngay.
+
+## 5. Bản đặc tả không gian cộng tác (README)
+Cấu trúc Folder:
+- /code (Dev: Editor)
+- /sensors (dữ liệu, cấu hình cảm biến)
+- /bao-cao (Nhà đầu tư: Viewer)
+- /thiet-bi (Đối tác: Commenter)
+- /tai-lieu (README, hướng dẫn)
+
+Cấu trúc Channel: #announcements, #sensor-thao-luan, #bug-report, #bao-cao, #random.
+
+Quy định phân quyền: theo bảng ở mục 2, nguyên tắc đặc quyền tối thiểu.
+
+## 6. Kiểm thử: lỡ tay xóa sạch folder sensors, khôi phục nhanh
+1. Bình tĩnh, vào Thùng rác (Trash/Recycle Bin) của Cloud, chọn thư mục sensors, bấm Restore.
+2. Nếu không có trong thùng rác, vào Version History/Git: chọn bản gần nhất trước khi xóa, khôi phục (git checkout/restore).
+3. Kiểm tra lại file đầy đủ, đồng bộ lại các máy, đọc Audit log để biết ai xóa/khi nào.
+4. Báo nhóm trên kênh, rút kinh nghiệm: hạn chế quyền xóa, bật cảnh báo xóa hàng loạt.
